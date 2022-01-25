@@ -94,14 +94,14 @@ WordPuzzleSolution WordPuzzle::findWord(std::string word) const
     for (int j = 0; j < this->colsize; j++)
     {
       int k = 0;
-      while (j + k < this->colsize &&
-             k < word.size() &&
-             this->table[i][j + k] == word[k])
+      while (j + k < this->colsize && k < word.size())
       {
+        solution.compCount++;
+        if (this->table[i][j + k] != word[k])
+          break;
+
         k++;
       }
-
-      solution.compCount += k + 1;
 
       if (k == word.size())
       {
@@ -117,14 +117,14 @@ WordPuzzleSolution WordPuzzle::findWord(std::string word) const
     for (int j = this->colsize - 1; j >= 0; j--)
     {
       int k = 0;
-      while (j - k >= 0 &&
-             k < word.size() &&
-             this->table[i][j - k] == word[k])
+      while (j - k >= 0 && k < word.size())
       {
+        solution.compCount++;
+        if (this->table[i][j - k] != word[k])
+          break;
+
         k++;
       }
-
-      solution.compCount += k + 1;
 
       if (k == word.size())
       {
@@ -140,14 +140,14 @@ WordPuzzleSolution WordPuzzle::findWord(std::string word) const
     for (int i = 0; i < this->rowsize; i++)
     {
       int k = 0;
-      while (i + k < this->rowsize &&
-             k < word.size() &&
-             this->table[i + k][j] == word[k])
+      while (i + k < this->rowsize && k < word.size())
       {
+        solution.compCount++;
+        if (this->table[i + k][j] != word[k])
+          break;
+
         k++;
       }
-
-      solution.compCount += k + 1;
 
       if (k == word.size())
       {
@@ -163,14 +163,14 @@ WordPuzzleSolution WordPuzzle::findWord(std::string word) const
     for (int i = this->rowsize - 1; i >= 0; i--)
     {
       int k = 0;
-      while (i - k >= 0 &&
-             k < word.size() &&
-             this->table[i - k][j] == word[k])
+      while (i - k >= 0 && k < word.size())
       {
+        solution.compCount++;
+        if (this->table[i - k][j] != word[k])
+          break;
+
         k++;
       }
-
-      solution.compCount += k + 1;
 
       if (k == word.size())
       {
@@ -188,13 +188,14 @@ WordPuzzleSolution WordPuzzle::findWord(std::string word) const
       int k = 0;
       while (i + k < this->rowsize &&
              j + k < this->colsize &&
-             k < word.size() &&
-             this->table[i + k][j + k] == word[k])
+             k < word.size())
       {
+        solution.compCount++;
+        if (this->table[i + k][j + k] != word[k])
+          break;
+
         k++;
       }
-
-      solution.compCount += k + 1;
 
       if (k == word.size())
       {
@@ -212,13 +213,14 @@ WordPuzzleSolution WordPuzzle::findWord(std::string word) const
       int k = 0;
       while (i - k >= 0 &&
              j + k < this->colsize &&
-             k < word.size() &&
-             this->table[i - k][j + k] == word[k])
+             k < word.size())
       {
+        solution.compCount++;
+        if (this->table[i - k][j + k] != word[k])
+          break;
+
         k++;
       }
-
-      solution.compCount += k + 1;
 
       if (k == word.size())
       {
@@ -236,13 +238,14 @@ WordPuzzleSolution WordPuzzle::findWord(std::string word) const
       int k = 0;
       while (i + k < this->rowsize &&
              j - k >= 0 &&
-             k < word.size() &&
-             this->table[i + k][j - k] == word[k])
+             k < word.size())
       {
+        solution.compCount++;
+        if (this->table[i + k][j - k] != word[k])
+          break;
+
         k++;
       }
-
-      solution.compCount += k + 1;
 
       if (k == word.size())
       {
@@ -260,13 +263,14 @@ WordPuzzleSolution WordPuzzle::findWord(std::string word) const
       int k = 0;
       while (i - k >= 0 &&
              j - k >= 0 &&
-             k < word.size() &&
-             this->table[i - k][j - k] == word[k])
+             k < word.size())
       {
+        solution.compCount++;
+        if (this->table[i - k][j - k] != word[k])
+          break;
+
         k++;
       }
-
-      solution.compCount += k + 1;
 
       if (k == word.size())
       {

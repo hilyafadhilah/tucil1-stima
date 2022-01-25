@@ -51,7 +51,6 @@ int main(int argc, char *argv[])
     }
 
     WordPuzzle puzzle(*in);
-    puzzle.print();
 
     std::vector<std::string> words;
     for (std::string word; std::getline(*in, word);)
@@ -77,6 +76,8 @@ int main(int argc, char *argv[])
     auto duration = t2 - t1;
 
     // 4: Print output
+
+    puzzle.print();
 
     long long comps = 0;
     long long found = 0;
