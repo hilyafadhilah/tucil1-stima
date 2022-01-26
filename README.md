@@ -22,22 +22,20 @@ $ make
 Program dapat menerima masukan nama file input sebagai argument pertama.
 
 ```
-$ ./bin/wordpuzzle test/sm1.txt
+$ ./bin/wordpuzzle test/sm-1.txt
 ```
 
 Program juga dapat menerima masukan melalui standard input.
 
 ```
-$ ./bin/wordpuzzle < test/sm1.txt
+$ ./bin/wordpuzzle < test/sm-1.txt
 ```
 
 Contoh format file dapat dilihat pada direktori `test`.
 
-### ⚠ Catatan Penting
-
-Program dibuat dengan asumsi masukan valid.
-Tidak boleh ada kelebihan spasi baik sebelum, sesudah,
-maupun di antara huruf puzzle dan kata yang dicari.
+> ⚠ Program dibuat dengan asumsi masukan valid.
+> Tidak boleh ada kelebihan spasi baik sebelum, sesudah,
+> maupun di antara huruf puzzle dan kata yang dicari.
 
 ## License
 
