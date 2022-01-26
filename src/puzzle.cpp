@@ -88,194 +88,163 @@ WordPuzzleSolution WordPuzzle::findWord(std::string word) const
 {
   WordPuzzleSolution solution(*this, word);
 
-  // horizontal left-to-right
+  if (word.empty())
+    return solution;
+
+  auto wordLen = word.size();
+
   for (int i = 0; i < this->rowsize; i++)
   {
     for (int j = 0; j < this->colsize; j++)
     {
-      int k = 0;
-      while (j + k < this->colsize && k < word.size())
+      solution.compCount++;
+      if (this->table[i][j] == word[0])
       {
-        solution.compCount++;
-        if (this->table[i][j + k] != word[k])
-          break;
+        int k;
 
-        k++;
-      }
+        // horizontal left-to-right
+        k = 1;
+        while (j + k < this->colsize && k < wordLen)
+        {
+          solution.compCount++;
+          if (this->table[i][j + k] != word[k])
+            break;
 
-      if (k == word.size())
-      {
-        solution.set(SolutionType::Left, i, j);
-        return solution;
-      }
-    }
-  }
+          k++;
+        }
 
-  // horizontal right-to-left
-  for (int i = 0; i < this->rowsize; i++)
-  {
-    for (int j = this->colsize - 1; j >= 0; j--)
-    {
-      int k = 0;
-      while (j - k >= 0 && k < word.size())
-      {
-        solution.compCount++;
-        if (this->table[i][j - k] != word[k])
-          break;
+        if (k == wordLen)
+        {
+          solution.set(SolutionType::Left, i, j);
+          return solution;
+        }
 
-        k++;
-      }
+        // horizontal right-to-left
+        k = 1;
+        while (j - k >= 0 && k < wordLen)
+        {
+          solution.compCount++;
+          if (this->table[i][j - k] != word[k])
+            break;
 
-      if (k == word.size())
-      {
-        solution.set(SolutionType::Right, i, j);
-        return solution;
-      }
-    }
-  }
+          k++;
+        }
 
-  // vertical top-to-bottom
-  for (int j = 0; j < this->colsize; j++)
-  {
-    for (int i = 0; i < this->rowsize; i++)
-    {
-      int k = 0;
-      while (i + k < this->rowsize && k < word.size())
-      {
-        solution.compCount++;
-        if (this->table[i + k][j] != word[k])
-          break;
+        if (k == wordLen)
+        {
+          solution.set(SolutionType::Right, i, j);
+          return solution;
+        }
 
-        k++;
-      }
+        // vertical top-to-bottom
+        k = 1;
+        while (i + k < this->rowsize && k < wordLen)
+        {
+          solution.compCount++;
+          if (this->table[i + k][j] != word[k])
+            break;
 
-      if (k == word.size())
-      {
-        solution.set(SolutionType::Top, i, j);
-        return solution;
-      }
-    }
-  }
+          k++;
+        }
 
-  // vertical bottom-to-top
-  for (int j = 0; j < this->colsize; j++)
-  {
-    for (int i = this->rowsize - 1; i >= 0; i--)
-    {
-      int k = 0;
-      while (i - k >= 0 && k < word.size())
-      {
-        solution.compCount++;
-        if (this->table[i - k][j] != word[k])
-          break;
+        if (k == wordLen)
+        {
+          solution.set(SolutionType::Top, i, j);
+          return solution;
+        }
 
-        k++;
-      }
+        // vertical bottom-to-top
+        k = 1;
+        while (i - k >= 0 && k < wordLen)
+        {
+          solution.compCount++;
+          if (this->table[i - k][j] != word[k])
+            break;
 
-      if (k == word.size())
-      {
-        solution.set(SolutionType::Bottom, i, j);
-        return solution;
-      }
-    }
-  }
+          k++;
+        }
 
-  // diagonal top-left to bottom-right
-  for (int i = 0; i < this->rowsize; i++)
-  {
-    for (int j = 0; j < this->colsize; j++)
-    {
-      int k = 0;
-      while (i + k < this->rowsize &&
-             j + k < this->colsize &&
-             k < word.size())
-      {
-        solution.compCount++;
-        if (this->table[i + k][j + k] != word[k])
-          break;
+        if (k == wordLen)
+        {
+          solution.set(SolutionType::Bottom, i, j);
+          return solution;
+        }
 
-        k++;
-      }
+        // diagonal top-left to bottom-right
+        k = 1;
+        while (i + k < this->rowsize &&
+               j + k < this->colsize &&
+               k < wordLen)
+        {
+          solution.compCount++;
+          if (this->table[i + k][j + k] != word[k])
+            break;
 
-      if (k == word.size())
-      {
-        solution.set(SolutionType::TopLeft, i, j);
-        return solution;
-      }
-    }
-  }
+          k++;
+        }
 
-  // diagonal bottom-left to top-right
-  for (int i = rowsize - 1; i >= 0; i--)
-  {
-    for (int j = 0; j < colsize; j++)
-    {
-      int k = 0;
-      while (i - k >= 0 &&
-             j + k < this->colsize &&
-             k < word.size())
-      {
-        solution.compCount++;
-        if (this->table[i - k][j + k] != word[k])
-          break;
+        if (k == wordLen)
+        {
+          solution.set(SolutionType::TopLeft, i, j);
+          return solution;
+        }
 
-        k++;
-      }
+        // diagonal bottom-left to top-right
+        k = 1;
+        while (i - k >= 0 &&
+               j + k < this->colsize &&
+               k < wordLen)
+        {
+          solution.compCount++;
+          if (this->table[i - k][j + k] != word[k])
+            break;
 
-      if (k == word.size())
-      {
-        solution.set(SolutionType::BottomLeft, i, j);
-        return solution;
-      }
-    }
-  }
+          k++;
+        }
 
-  // diagonal top-right to bottom-left
-  for (int i = 0; i < rowsize; i++)
-  {
-    for (int j = 0; j < colsize; j++)
-    {
-      int k = 0;
-      while (i + k < this->rowsize &&
-             j - k >= 0 &&
-             k < word.size())
-      {
-        solution.compCount++;
-        if (this->table[i + k][j - k] != word[k])
-          break;
+        if (k == wordLen)
+        {
+          solution.set(SolutionType::BottomLeft, i, j);
+          return solution;
+        }
 
-        k++;
-      }
+        // diagonal top-right to bottom-left
+        k = 1;
+        while (i + k < this->rowsize &&
+               j - k >= 0 &&
+               k < wordLen)
+        {
+          solution.compCount++;
+          if (this->table[i + k][j - k] != word[k])
+            break;
 
-      if (k == word.size())
-      {
-        solution.set(SolutionType::TopRight, i, j);
-        return solution;
-      }
-    }
-  }
+          k++;
+        }
 
-  // diagonal bottom-right to top-left
-  for (int i = rowsize - 1; i >= 0; i--)
-  {
-    for (int j = 0; j < colsize; j++)
-    {
-      int k = 0;
-      while (i - k >= 0 &&
-             j - k >= 0 &&
-             k < word.size())
-      {
-        solution.compCount++;
-        if (this->table[i - k][j - k] != word[k])
-          break;
+        if (k == wordLen)
+        {
+          solution.set(SolutionType::TopRight, i, j);
+          return solution;
+        }
 
-        k++;
-      }
+        // diagonal bottom-right to top-left
+        k = 1;
+        while (i - k >= 0 &&
+               j - k >= 0 &&
+               k < wordLen)
+        {
+          solution.compCount++;
+          if (this->table[i - k][j - k] != word[k])
+            break;
 
-      if (k == word.size())
-      {
-        solution.set(SolutionType::BottomRight, i, j);
-        return solution;
+          k++;
+        }
+
+        if (k == wordLen)
+        {
+          solution.set(SolutionType::BottomRight, i, j);
+          return solution;
+        }
       }
     }
   }

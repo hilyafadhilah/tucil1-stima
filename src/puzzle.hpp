@@ -1,8 +1,6 @@
 #ifndef PUZZLE_H_INCLUDED
 #define PUZZLE_H_INCLUDED
 
-#include <string>
-
 #define PUZZLE_MAX_SIZE 999
 
 class WordPuzzleSolution;

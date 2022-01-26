@@ -8,8 +8,6 @@
 
 #include "puzzle.hpp"
 
-using namespace std::chrono;
-
 void help()
 {
   std::cout << "Usage: wordpuzzle [filename]\n"
@@ -65,14 +63,14 @@ int main(int argc, char *argv[])
 
     std::vector<WordPuzzleSolution> solutions;
 
-    auto t1 = high_resolution_clock::now();
+    auto t1 = std::chrono::high_resolution_clock::now();
 
     for (const std::string &word : words)
     {
       solutions.push_back(puzzle.findWord(word));
     }
 
-    auto t2 = high_resolution_clock::now();
+    auto t2 = std::chrono::high_resolution_clock::now();
     auto duration = t2 - t1;
 
     // 4: Print output
@@ -102,7 +100,9 @@ int main(int argc, char *argv[])
               << ", not found: " << words.size() - found << ")\n"
               << "Total comparisons : " << comps << "\n"
               << "Total time taken  : "
-              << duration_cast<nanoseconds>(duration).count()
+              << std::chrono::duration_cast<
+                     std::chrono::nanoseconds>(duration)
+                     .count()
               << " nanoseconds\n";
   }
   catch (std::exception &e)
